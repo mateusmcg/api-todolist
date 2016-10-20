@@ -1,0 +1,30 @@
+{
+  "name": "api-todolist",
+  "version": "1.0.0",
+  "description": "An API to schedule your tasks",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateusmcg/api-todolist.git"
+  },
+  "keywords": [
+    "api",
+    "todolist",
+    "node",
+    "webapi"
+  ],
+  "author": "Mateus Cerqueira <mateus.mcg@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mateusmcg/api-todolist/issues"
+  },
+  "homepage": "https://github.com/mateusmcg/api-todolist#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.4"
+  }
+}
