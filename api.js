@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Set the port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 5000;
 
 // ############### INÍCIO ROTAS ####################
 var router = express.Router();
@@ -114,5 +114,9 @@ app.use('/api', router);
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+var server = app.listen(port, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Web server started at http://%s:%s', host, port);
+});
