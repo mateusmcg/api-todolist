@@ -36,25 +36,20 @@ router.get('/', function (req, res) {
 router.route('/projetos')
 
     .get(function (req, res) {
-        Models.Projeto.find({}, function(err, docs){
+        console.log(req);
+        var userEmail = req.query.email;
+        Models.Projeto.find({ email: userEmail }, function (err, docs) {
             res.json(docs);
         });
     })
     .post(function (req, res) {
+        console.log(req);
+        var body = req.body;
         var projeto = new Models.Projeto();
-        projeto.nome = 'Projeto teste';
-        projeto.descricao = 'Descricao teste';
+        projeto.nome = body.nome;
+        projeto.descricao = body.descricao;
         projeto.dataCriacao = new Date();
-        projeto.email = 'teste@gmail.com';
-        projeto.tarefas.push({
-            completed: false,
-            note: 'Sou uma tarefa'
-        });
-
-        projeto.tarefas.push({
-            completed: true,
-            note: 'Sou uma tarefa 2'
-        });
+        projeto.email = body.email;
 
         projeto.save(function (err) {
             if (err) {
@@ -69,15 +64,39 @@ router.route('/projetos/:id')
 
     .get(function (req, res) {
         var id = req.params.id;
-        res.json({ message: 'Projeto com id = ' + id + ' recuperado' });
+        Models.Projeto.findById(id, function (err, docs) {
+            if (err)
+                res.json({ message: 'Erro :(' });
+            else
+                res.json(docs);
+        });
     })
     .put(function (req, res) {
+        var newObj = req.body;
         var id = req.params.id;
-        res.json({ message: 'Projeto com id = ' + id + ' alterado', obj: req.body });
+        Models.Projeto.findById(id, function (err, projeto) {
+            if (err)
+                res.json({ message: 'Erro :(' });
+            else{
+                projeto.nome = newObj.nome;
+                projeto.descricao = newObj.descricao;
+                projeto.save(function(err, projeto){
+                    if(err)
+                        res.json({message: 'Erro ao atualizar :('});
+                    else
+                        res.json({message: 'Projeto atualizado com sucesso !'});
+                });
+            }
+        });
     })
     .delete(function (req, res) {
         var id = req.params.id;
-        res.json({ message: 'Projeto com id = ' + id + ' removido', obj: req.body });
+        Models.Projeto.findByIdAndRemove(id, function (err, docs) {
+            if (err)
+                res.json({ message: 'Erro :(' })
+            else
+                res.json({ message: 'Item removido com sucesso !' });
+        });
     });
 
 // TAREFAS

@@ -7,7 +7,9 @@ var ObjectId = Schema.ObjectId;
 var TarefasSchema = new mongoose.Schema({
   id: ObjectId,
   completed: Boolean,
-  note: String
+  descricao: String,
+  dataLimite: Date,
+  prioridade: Number
 });
 
 // Create a schema
