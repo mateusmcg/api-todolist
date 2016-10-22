@@ -2,10 +2,13 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     Models = require('./app/database/models'),
-    dataBase = require('./app/database/db');
+    dataBase = require('./app/database/db'),
+    cors = require('cors');
 
 //Init express
 var app = express();
+
+app.use(cors());
 
 //Configure app to user BodyParser
 //This will let us get data from a POST
